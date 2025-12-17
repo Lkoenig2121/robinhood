@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import Link from 'next/link'
+import RobinhoodLogo from '@/components/RobinhoodLogo'
 import {
   LineChart,
   Line,
@@ -224,28 +225,28 @@ export default function StockDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-white text-xl">Loading...</div>
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-black text-xl">Loading...</div>
       </div>
     )
   }
 
   if (error || !stock) {
     return (
-      <div className="min-h-screen bg-black text-white">
-        <nav className="border-b border-gray-800 px-6 py-4">
+      <div className="min-h-screen bg-white text-black">
+        <nav className="border-b-4 border-robinhood-green px-6 py-4 bg-white">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <Link href="/dashboard" className="text-2xl font-bold hover:text-gray-300">
-              Robinhood
+            <Link href="/dashboard" className="flex items-center hover:opacity-80 transition-opacity">
+              <RobinhoodLogo className="w-8 h-8" showText={true} />
             </Link>
             <div className="flex items-center gap-3">
               <Link
                 href="/profile"
-                className="p-2 hover:bg-white/10 rounded-full transition-all"
+                className="p-2 hover:bg-gray-50 rounded-full transition-all"
                 title="Profile"
               >
                 <svg
-                  className="w-6 h-6 text-white"
+                  className="w-6 h-6 text-black"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -260,7 +261,7 @@ export default function StockDetailPage() {
               </Link>
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 border border-white rounded-lg hover:bg-white/10 transition-all"
+                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-all"
               >
                 Logout
               </button>
@@ -272,7 +273,7 @@ export default function StockDetailPage() {
             <p className="text-red-400 text-xl mb-4">{error || 'Stock not found'}</p>
             <Link
               href="/dashboard"
-              className="text-white underline hover:text-gray-300"
+              className="text-black underline hover:text-gray-300"
             >
               Back to Dashboard
             </Link>
@@ -283,39 +284,60 @@ export default function StockDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <nav className="border-b border-gray-800 px-6 py-4">
+    <div className="min-h-screen bg-white text-black">
+      <nav className="border-b-4 border-robinhood-green px-6 py-4 bg-white">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link href="/dashboard" className="text-2xl font-bold hover:text-gray-300">
-            Robinhood
+          <Link href="/dashboard" className="flex items-center hover:opacity-80 transition-opacity">
+            <RobinhoodLogo className="w-8 h-8" showText={true} />
           </Link>
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 border border-white rounded-lg hover:bg-white/10 transition-all"
-          >
-            Logout
-          </button>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/profile"
+              className="p-2 hover:bg-gray-50 rounded-full transition-all"
+              title="Profile"
+            >
+              <svg
+                className="w-6 h-6 text-black"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                />
+              </svg>
+            </Link>
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-all text-black"
+            >
+              Logout
+            </button>
+          </div>
         </div>
       </nav>
 
       <main className="max-w-7xl mx-auto px-6 py-8">
         <Link
           href="/dashboard"
-          className="text-gray-400 hover:text-white mb-6 inline-block transition-colors"
+          className="text-gray-600 hover:text-black mb-6 inline-block transition-colors"
         >
           ← Back to Dashboard
         </Link>
 
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-2">{stock.symbol}</h1>
-          <p className="text-xl text-gray-400">{stock.name}</p>
+          <p className="text-xl text-gray-600">{stock.name}</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Price Card with Chart */}
-          <div className="lg:col-span-2 bg-gray-900 border border-gray-800 rounded-lg p-6">
+          <div className="lg:col-span-2 bg-white border border-gray-200 rounded-lg p-6">
             <div className="mb-6">
-              <div className="text-gray-400 text-sm mb-1">Current Price</div>
+              <div className="text-gray-600 text-sm mb-1">Current Price</div>
               <div className="text-5xl font-bold mb-2">
                 ${stock.price.toLocaleString('en-US', {
                   minimumFractionDigits: 2,
@@ -324,7 +346,7 @@ export default function StockDetailPage() {
               </div>
               <div
                 className={`text-xl font-medium ${
-                  stock.change >= 0 ? 'text-green-400' : 'text-red-400'
+                  stock.change >= 0 ? 'text-robinhood-green' : 'text-red-400'
                 }`}
               >
                 {stock.change >= 0 ? '+' : ''}
@@ -344,8 +366,8 @@ export default function StockDetailPage() {
                       onClick={() => setChartRange(range)}
                       className={`px-3 py-1 text-sm rounded transition-all ${
                         chartRange === range
-                          ? 'bg-white text-black font-medium'
-                          : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                          ? 'bg-robinhood-green text-black font-medium'
+                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                       }`}
                     >
                       {range}
@@ -354,36 +376,36 @@ export default function StockDetailPage() {
                 </div>
               </div>
               {chartLoading ? (
-                <div className="h-64 flex items-center justify-center text-gray-400">
+                <div className="h-64 flex items-center justify-center text-gray-600">
                   Loading chart...
                 </div>
               ) : chartData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={300}>
                   <LineChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
                     <XAxis
                       dataKey="date"
-                      stroke="#9CA3AF"
-                      tick={{ fill: '#9CA3AF' }}
+                      stroke="#6B7280"
+                      tick={{ fill: '#6B7280' }}
                       tickFormatter={(value) => {
                         const date = new Date(value)
                         return `${date.getMonth() + 1}/${date.getDate()}`
                       }}
                     />
                     <YAxis
-                      stroke="#9CA3AF"
-                      tick={{ fill: '#9CA3AF' }}
+                      stroke="#6B7280"
+                      tick={{ fill: '#6B7280' }}
                       domain={['auto', 'auto']}
                       tickFormatter={(value) => `$${value.toFixed(0)}`}
                     />
                     <Tooltip
                       contentStyle={{
-                        backgroundColor: '#1F2937',
-                        border: '1px solid #374151',
+                        backgroundColor: '#FFFFFF',
+                        border: '1px solid #E5E7EB',
                         borderRadius: '8px',
-                        color: '#fff',
+                        color: '#000',
                       }}
-                      labelStyle={{ color: '#9CA3AF' }}
+                      labelStyle={{ color: '#6B7280' }}
                       formatter={(value: number) => [`$${value.toFixed(2)}`, 'Price']}
                       labelFormatter={(label) => {
                         const date = new Date(label)
@@ -397,7 +419,7 @@ export default function StockDetailPage() {
                     <Line
                       type="monotone"
                       dataKey="price"
-                      stroke={stock.change >= 0 ? '#10B981' : '#EF4444'}
+                      stroke={stock.change >= 0 ? '#00C805' : '#EF4444'}
                       strokeWidth={2}
                       dot={false}
                       activeDot={{ r: 4 }}
@@ -405,17 +427,17 @@ export default function StockDetailPage() {
                   </LineChart>
                 </ResponsiveContainer>
               ) : (
-                <div className="h-64 flex items-center justify-center text-gray-400">
+                <div className="h-64 flex items-center justify-center text-gray-600">
                   No chart data available
                 </div>
               )}
             </div>
 
-            <div className="mt-8 pt-6 border-t border-gray-800">
+            <div className="mt-8 pt-6 border-t border-gray-200">
               <h3 className="text-lg font-semibold mb-4">Market Stats</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <div className="text-gray-400 text-sm mb-1">Open</div>
+                  <div className="text-gray-600 text-sm mb-1">Open</div>
                   <div className="text-xl font-semibold">
                     ${stock.open.toLocaleString('en-US', {
                       minimumFractionDigits: 2,
@@ -424,7 +446,7 @@ export default function StockDetailPage() {
                   </div>
                 </div>
                 <div>
-                  <div className="text-gray-400 text-sm mb-1">Previous Close</div>
+                  <div className="text-gray-600 text-sm mb-1">Previous Close</div>
                   <div className="text-xl font-semibold">
                     ${stock.previousClose.toLocaleString('en-US', {
                       minimumFractionDigits: 2,
@@ -433,8 +455,8 @@ export default function StockDetailPage() {
                   </div>
                 </div>
                 <div>
-                  <div className="text-gray-400 text-sm mb-1">Day High</div>
-                  <div className="text-xl font-semibold text-green-400">
+                  <div className="text-gray-600 text-sm mb-1">Day High</div>
+                  <div className="text-xl font-semibold text-robinhood-green">
                     ${stock.high.toLocaleString('en-US', {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
@@ -442,7 +464,7 @@ export default function StockDetailPage() {
                   </div>
                 </div>
                 <div>
-                  <div className="text-gray-400 text-sm mb-1">Day Low</div>
+                  <div className="text-gray-600 text-sm mb-1">Day Low</div>
                   <div className="text-xl font-semibold text-red-400">
                     ${stock.low.toLocaleString('en-US', {
                       minimumFractionDigits: 2,
@@ -451,14 +473,14 @@ export default function StockDetailPage() {
                   </div>
                 </div>
                 <div className="col-span-2">
-                  <div className="text-gray-400 text-sm mb-1">Volume</div>
+                  <div className="text-gray-600 text-sm mb-1">Volume</div>
                   <div className="text-xl font-semibold">
                     {stock.volume.toLocaleString('en-US')}
                   </div>
                 </div>
                 {stock.marketCap && (
                   <div className="col-span-2">
-                    <div className="text-gray-400 text-sm mb-1">Market Cap</div>
+                    <div className="text-gray-600 text-sm mb-1">Market Cap</div>
                     <div className="text-xl font-semibold">
                       ${stock.marketCap.toLocaleString('en-US')}
                     </div>
@@ -469,19 +491,19 @@ export default function StockDetailPage() {
           </div>
 
           {/* Trade Card */}
-          <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
+          <div className="bg-white border border-gray-200 rounded-lg p-6">
             <h3 className="text-lg font-semibold mb-4">Trade {stock.symbol}</h3>
             {portfolioEntry && (
-              <div className="mb-4 p-3 bg-gray-800 rounded-lg">
-                <div className="text-gray-400 text-xs mb-1">You own</div>
-                <div className="text-white font-semibold">{portfolioEntry.shares} share(s)</div>
-                <div className="text-gray-400 text-xs mt-1">Avg. cost: ${portfolioEntry.averageCost.toFixed(2)}</div>
+              <div className="mb-4 p-3 bg-gray-100 rounded-lg">
+                <div className="text-gray-600 text-xs mb-1">You own</div>
+                <div className="text-black font-semibold">{portfolioEntry.shares} share(s)</div>
+                <div className="text-gray-600 text-xs mt-1">Avg. cost: ${portfolioEntry.averageCost.toFixed(2)}</div>
               </div>
             )}
             {tradingMessage && (
-              <div className={`mb-4 p-3 rounded-lg text-sm ${
+              <div className={`mb-4 p-4 rounded-lg text-sm font-medium ${
                 tradingMessage.includes('Successfully') 
-                  ? 'bg-green-900/30 text-green-400 border border-green-700' 
+                  ? 'bg-robinhood-green text-black' 
                   : 'bg-red-900/30 text-red-400 border border-red-700'
               }`}>
                 {tradingMessage}
@@ -489,14 +511,14 @@ export default function StockDetailPage() {
             )}
             <div className="space-y-4">
               <div>
-                <label className="block text-gray-400 text-sm mb-2">Quantity</label>
+                <label className="block text-gray-600 text-sm mb-2">Quantity</label>
                 <input
                   type="number"
                   min="1"
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
                   placeholder="0"
-                  className="w-full bg-black border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white"
+                  className="w-full bg-white border border-gray-300 rounded-lg px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-robinhood-green"
                   disabled={trading}
                 />
               </div>
@@ -504,7 +526,7 @@ export default function StockDetailPage() {
                 <button
                   onClick={() => handleTrade('buy')}
                   disabled={trading}
-                  className="flex-1 bg-green-600 hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium py-3 px-4 rounded-lg transition-all"
+                  className="flex-1 bg-robinhood-green hover:bg-robinhood-green-dark disabled:opacity-50 disabled:cursor-not-allowed text-black font-medium py-3 px-4 rounded-lg transition-all"
                 >
                   {trading ? 'Processing...' : 'Buy'}
                 </button>
@@ -516,8 +538,8 @@ export default function StockDetailPage() {
                   Sell
                 </button>
               </div>
-              <div className="pt-4 border-t border-gray-800">
-                <div className="text-gray-400 text-sm mb-2">Estimated Cost</div>
+              <div className="pt-4 border-t border-gray-200">
+                <div className="text-gray-600 text-sm mb-2">Estimated Cost</div>
                 <div className="text-xl font-semibold">
                   ${estimatedCost.toLocaleString('en-US', {
                     minimumFractionDigits: 2,

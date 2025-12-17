@@ -11,6 +11,12 @@ const config: Config = {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        robinhood: {
+          green: '#00C805',
+          'green-dark': '#00A804',
+          'green-light': '#00E806',
+          'green-bg': '#00C805',
+        },
       },
     },
   },

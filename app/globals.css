@@ -3,8 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
+  --background: #ffffff;
+  --foreground: #000000;
+  --robinhood-green: #00C805;
 }
 
 body {
@@ -19,7 +20,7 @@ body {
 input[type="checkbox"] {
   appearance: none;
   background-color: transparent;
-  border: 1px solid white;
+  border: 1px solid #000000;
   width: 1rem;
   height: 1rem;
   border-radius: 2px;
@@ -29,7 +30,7 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked {
-  background-color: white;
+  background-color: #000000;
 }
 
 input[type="checkbox"]:checked::after {
@@ -39,7 +40,7 @@ input[type="checkbox"]:checked::after {
   top: 1px;
   width: 4px;
   height: 8px;
-  border: solid black;
+  border: solid white;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }

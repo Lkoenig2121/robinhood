@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
+import RobinhoodLogo from '@/components/RobinhoodLogo'
 
 export default function LoginForm() {
   const router = useRouter()
@@ -72,7 +73,10 @@ export default function LoginForm() {
   return (
     <div className="w-full">
       <div className="mb-12">
-        <h1 className="text-4xl font-semibold text-white text-center">
+        <div className="flex justify-center mb-6">
+          <RobinhoodLogo className="w-12 h-12" />
+        </div>
+        <h1 className="text-4xl font-semibold text-black text-center">
           Log in to Robinhood
         </h1>
       </div>
@@ -82,13 +86,13 @@ export default function LoginForm() {
         <button
           type="button"
           onClick={() => setShowTestAccounts(!showTestAccounts)}
-          className="w-full flex items-center justify-between bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 text-left hover:bg-gray-900/70 transition-all"
+          className="w-full flex items-center justify-between bg-gray-100 border border-gray-300 rounded-lg px-4 py-3 text-left hover:bg-gray-200 transition-all"
         >
-          <span className="text-white text-sm font-medium">
+          <span className="text-black text-sm font-medium">
             Demo Accounts (Click to {showTestAccounts ? 'hide' : 'show'})
           </span>
           <svg
-            className={`w-5 h-5 text-white transition-transform ${showTestAccounts ? 'transform rotate-180' : ''}`}
+            className={`w-5 h-5 text-black transition-transform ${showTestAccounts ? 'transform rotate-180' : ''}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -102,33 +106,33 @@ export default function LoginForm() {
           </svg>
         </button>
         {showTestAccounts && (
-          <div className="mt-2 bg-gray-900/30 border border-gray-700 rounded-lg p-4 space-y-3">
+          <div className="mt-2 bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-3">
             {testAccounts.map((account, index) => (
               <div
                 key={index}
-                className="bg-black/30 border border-gray-800 rounded-lg p-3"
+                className="bg-white border border-gray-300 rounded-lg p-3"
               >
                 <div className="flex items-start justify-between mb-2">
                   <div>
-                    <p className="text-white font-medium text-sm">{account.name}</p>
-                    <p className="text-gray-400 text-xs">Balance: {account.balance}</p>
+                    <p className="text-black font-medium text-sm">{account.name}</p>
+                    <p className="text-gray-600 text-xs">Balance: {account.balance}</p>
                   </div>
                   <button
                     type="button"
                     onClick={() => fillCredentials(account.email, account.password)}
-                    className="text-xs bg-white text-black px-3 py-1 rounded hover:bg-gray-200 transition-all font-medium"
+                    className="text-xs bg-robinhood-green text-black px-3 py-1 rounded hover:bg-robinhood-green-dark transition-all font-medium"
                   >
                     Fill
                   </button>
                 </div>
                 <div className="space-y-1 text-xs">
                   <div className="flex items-center gap-2">
-                    <span className="text-gray-500 w-16">Email:</span>
-                    <span className="text-white font-mono">{account.email}</span>
+                    <span className="text-gray-600 w-16">Email:</span>
+                    <span className="text-black font-mono">{account.email}</span>
                     <button
                       type="button"
                       onClick={() => navigator.clipboard.writeText(account.email)}
-                      className="text-gray-400 hover:text-white ml-auto"
+                      className="text-gray-600 hover:text-black ml-auto"
                       title="Copy email"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -137,12 +141,12 @@ export default function LoginForm() {
                     </button>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-gray-500 w-16">Password:</span>
-                    <span className="text-white font-mono">{account.password}</span>
+                    <span className="text-gray-600 w-16">Password:</span>
+                    <span className="text-black font-mono">{account.password}</span>
                     <button
                       type="button"
                       onClick={() => navigator.clipboard.writeText(account.password)}
-                      className="text-gray-400 hover:text-white ml-auto"
+                      className="text-gray-600 hover:text-black ml-auto"
                       title="Copy password"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -166,7 +170,7 @@ export default function LoginForm() {
 
         {/* Email Field */}
         <div>
-          <label htmlFor="email" className="block text-white text-sm font-medium mb-2">
+          <label htmlFor="email" className="block text-black text-sm font-medium mb-2">
             Email
           </label>
           <input
@@ -175,14 +179,14 @@ export default function LoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-4 py-3 bg-transparent border border-white rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-all"
+            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-robinhood-green focus:border-transparent transition-all"
             placeholder="Email"
           />
         </div>
 
         {/* Password Field */}
         <div>
-          <label htmlFor="password" className="block text-white text-sm font-medium mb-2">
+          <label htmlFor="password" className="block text-black text-sm font-medium mb-2">
             Password
           </label>
           <div className="relative">
@@ -192,13 +196,13 @@ export default function LoginForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-4 py-3 bg-transparent border border-white rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-all pr-12"
+              className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-robinhood-green focus:border-transparent transition-all pr-12"
               placeholder="Password"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 focus:outline-none"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-black hover:text-gray-600 focus:outline-none"
               aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
               <svg
@@ -244,9 +248,9 @@ export default function LoginForm() {
             type="checkbox"
             checked={keepLoggedIn}
             onChange={(e) => setKeepLoggedIn(e.target.checked)}
-            className="focus:ring-2 focus:ring-white focus:ring-offset-0 focus:ring-offset-black"
+            className="focus:ring-2 focus:ring-robinhood-green focus:ring-offset-0 focus:ring-offset-white"
           />
-          <label htmlFor="keepLoggedIn" className="ml-3 text-white text-sm cursor-pointer">
+          <label htmlFor="keepLoggedIn" className="ml-3 text-black text-sm cursor-pointer">
             Keep me logged in for up to 30 days
           </label>
         </div>
@@ -256,13 +260,13 @@ export default function LoginForm() {
           <button
             type="submit"
             disabled={loading}
-            className="flex-1 bg-white text-black font-medium py-3 px-6 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 bg-robinhood-green text-black font-medium py-3 px-6 rounded-lg hover:bg-robinhood-green-dark focus:outline-none focus:ring-2 focus:ring-robinhood-green focus:ring-offset-2 focus:ring-offset-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Logging in...' : 'Log In'}
           </button>
           <button
             type="button"
-            className="bg-transparent border border-white text-white font-medium py-3 px-6 rounded-lg hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black transition-all"
+            className="bg-transparent border border-gray-300 text-black font-medium py-3 px-6 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 focus:ring-offset-white transition-all"
           >
             Help
           </button>
@@ -270,15 +274,15 @@ export default function LoginForm() {
 
         {/* Divider */}
         <div className="relative flex items-center my-6">
-          <div className="flex-1 border-t border-gray-600"></div>
-          <span className="px-4 text-white text-sm">or</span>
-          <div className="flex-1 border-t border-gray-600"></div>
+          <div className="flex-1 border-t border-gray-300"></div>
+          <span className="px-4 text-gray-600 text-sm">or</span>
+          <div className="flex-1 border-t border-gray-300"></div>
         </div>
 
         {/* Passkey Button */}
         <button
           type="button"
-          className="w-full bg-transparent border border-white text-white font-medium py-3 px-6 rounded-lg hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black transition-all flex items-center justify-center gap-2"
+          className="w-full bg-transparent border border-gray-300 text-black font-medium py-3 px-6 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 focus:ring-offset-white transition-all flex items-center justify-center gap-2"
         >
           <svg
             className="w-5 h-5"
@@ -298,11 +302,11 @@ export default function LoginForm() {
 
         {/* Create Account Link */}
         <div className="text-center pt-4">
-          <p className="text-white text-sm">
+          <p className="text-black text-sm">
             Not on Robinhood?{' '}
             <a
               href="#"
-              className="underline hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-white rounded"
+              className="underline hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-robinhood-green rounded text-robinhood-green"
             >
               Create an account
             </a>
